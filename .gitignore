@@ -3,3 +3,7 @@
 *.gcno
 *.gcda
 *.gcov
+*.o
+*.exe
+*.txt
+*.bat
