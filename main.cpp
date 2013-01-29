@@ -2,7 +2,6 @@
 
 #include <stdlib.h>
 #include <ctime>
-#include "main_header.h"
 #include "opencv2/highgui/highgui.hpp"
 #include "fftw3.h"
 #include "elements/image_creater.h"
@@ -30,39 +29,40 @@ int main(int argc, char** argv) {
         GRIS, ROJO, VERDE, AZUL, AMARILLO, COLORES, UMBRAL, BORDES, DIFUSO,INVERSO, EXIT_DEMO=20
     };
     Option option = video_opt;
+    srand ( time(NULL) );
     cvNamedWindow("IN", CV_WINDOW_AUTOSIZE);
     cvNamedWindow("OUT", CV_WINDOW_AUTOSIZE);
     cvNamedWindow("Histograms", CV_WINDOW_AUTOSIZE);
 
     IplImage* img = NULL, *img2 = NULL, *lplOut = NULL, *histRimg=NULL, *histGimg=NULL, *histBimg = NULL, *histLimg=NULL;
+    strcpy(cad, "demo");                                                // For option
     do
     {
-        Util::format_a3("Elige un modo");
-        scanf("%s",cad);
+        DemoAlgorithm demo_algorithm;
         option = (Option)Util::get_option_enum(cad);
-        Algorithm algorithm;
-        DemoAlgorithm demoAlgorithm;
         switch(option)
         {
             case exit_opt:
             {}break;
             case demo_opt:
             {
-                Util::format_a2("Has entrado al modo demo_opt");
-                Util::format_a3("Escribe el algoritmo que deseas");
-                scanf("%s",cad);
-                demoAlgorithm = (DemoAlgorithm)Util::get_demo_algorithm_enum(cad);
+                demo_algorithm = (DemoAlgorithm)Util::get_demo_algorithm_enum(cad);
                 do
                 {
-                    AppMngr::demo(0,&myImg,&myImg2,&myImg3,(int)demoAlgorithm);
+                    strcpy(cad, "colores");
+                    demo_algorithm = (DemoAlgorithm)Util::get_demo_algorithm_enum(cad);
+                    AppMngr::demo(0,&myImg,&myImg2,&myImg3,(int)demo_algorithm);
                     Util::format_a3("Escribe el algoritmo que deseas");
                     scanf("%s",cad);
-                    demoAlgorithm = (DemoAlgorithm)Util::get_demo_algorithm_enum(cad);
-                }while(demoAlgorithm != EXIT_DEMO);
+                }while(demo_algorithm != EXIT_DEMO);
+                Util::format_a2("Has entrado al modo demo_opt");
+                Util::format_a3("Escribe el algoritmo que deseas");
+                scanf("%s",cad);                                        // For option
                 break;
             }
-
         }
+        Util::format_a3("Elige un modo");
+        scanf("%s",cad);
     }while(option != exit_opt);
 
     cvDestroyAllWindows();

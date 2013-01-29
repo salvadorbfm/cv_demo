@@ -17,7 +17,7 @@ void AppMngr::demo(int type, Image *myImg, Image *myImg2, Image *myImg3, int alg
     IplImage* frame, *preOutImage=NULL, *outImage= NULL;
     //IplImage* frame1 = NULL, *frame2 = NULL, *frame3 = NULL;
     bool first_time = true, is_available = true;
-    int cont = 0;
+    long long int cont = 0;
     double *vec = NULL, vecTemp[3], *filter = NULL, *filter2=NULL,*vector_image = NULL, *vec_max = NULL, *vec_min = NULL;
     Data g = Data();
     FFTWManager FFTWmngr, FFTWmngrFilter;
@@ -39,14 +39,13 @@ void AppMngr::demo(int type, Image *myImg, Image *myImg2, Image *myImg3, int alg
 
     frame = cvQueryFrame(capture);
 
-
     while (ui_handler.is_unable_to_continue() == false)
     {
         frame = cvQueryFrame(capture);
 
         if (!frame) break;
         cvShowImage("IN", frame);
-        cvMoveWindow( "IN", 10, 10 );
+        cvMoveWindow( "IN", 100, 10 );
 
         if (first_time == true) {
             myImg->initialize( frame->height,  frame->width, 1);
@@ -97,8 +96,8 @@ void AppMngr::demo(int type, Image *myImg, Image *myImg2, Image *myImg3, int alg
             }break;
             case 5: //............... MOSAICO
             {
-                myImg->to_mosaic();
-                myImg->full_range_adjust(0,255.0,NOTHING, NULL, NULL, true);
+                myImg->to_mosaic(3, cont);
+                myImg->full_range_adjust(0.0,0.0,NOTHING, NULL, NULL, true);
             }break;
             case 6: //............... UMBRAL
             {
@@ -112,11 +111,13 @@ void AppMngr::demo(int type, Image *myImg, Image *myImg2, Image *myImg3, int alg
             {
                 myImg->to_grayscale();
                 printf("%s\n","SEM After 1");
-                myImg->full_range_adjust(0,0,NOTHING,NULL,NULL, true);
+                //myImg->full_range_adjust(0,0,NOTHING,NULL,NULL, true);
                 printf("%s\n","SEM After 2");
+
                 //myImg->to_double_vector(1, vector_image);
                 //myImg->grayscale_filter_by_fft(&FFTWmngr, &FFTWmngrFilter, vector_image);
-                myImg->convolution(&g,0,true);
+
+                //myImg->convolution(&g,0,true);
                 printf("%s\n","SEM After 3");
                 //int t = myImg->get_threshold_by_otsu(RED);
                 myImg->threshold_umbralization(80);

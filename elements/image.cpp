@@ -893,42 +893,41 @@ void Image::to_grayscale()
     }
 
 }
-void Image::to_mosaic()
+void Image::to_mosaic(int parts, long long int counter)
 {
     double valueR=0.0, valueG=0.0, valueB=0.0;
-    //double valuesR[32], valuesG[32], valuesB[32];
     register int index =0;
     int channel_index=0;
-    int times = 0, iFirstValue=0, iLastValue=0, jFirstValue=0, jLastValue=0, i_inc=0, j_inc=0;
-    i_inc = this->rows/5;
-    j_inc = this->cols/5;
-    iLastValue = i_inc;
-    jLastValue = j_inc;
-    srand ( time(NULL) );
+    int times = 0, first_i=0, last_i=0, first_j=0, last_j=0, i_inc=0, j_inc=0;
+    i_inc = this->rows/parts;
+    j_inc = this->cols/parts;
+    last_i = i_inc;
+    last_j = j_inc;
+
     do
     {
-
-        switch(channel_index){
+        channel_index = rand()%3;
+        switch ( channel_index ){
         case 0:
-            valueB = rand()%255 + 1;
+            valueB = rand()%100 + 50;
             break;
         case 1:
-            valueG = rand()%255 + 1;
+            valueG = rand()%100 + 50;
             break;
         case 2:
-            valueR = rand()%255 + 1;
+            valueR = rand()%150 + 50;
             break;
         }
-        for(int i=iFirstValue; i<iLastValue; i++)
+        for (int i=first_i; i<last_i; i++)
         {
             this->rgb.ptr_data = (uchar*)(this->rgb.ptr_orig + i* this->rgb.widthstep);
-            for(int j=jFirstValue; j<jLastValue; j++)
+            for (int j=first_j; j<last_j; j++)
             {
-                if(channel_index !=0)
+                if (channel_index !=0)
                     valueB = (double)this->rgb.ptr_data[3*j + 0];
-                if(channel_index !=1)
+                if (channel_index !=1)
                     valueG = (double)this->rgb.ptr_data[3*j + 1];
-                if(channel_index !=2)
+                if (channel_index !=2)
                     valueR = (double)this->rgb.ptr_data[3*j + 2];
 
                 index = i*3*this->cols + 3*j;
@@ -937,23 +936,19 @@ void Image::to_mosaic()
                 this->rgb.ptr_double_data[index + 0] = valueB;
             }
         }
-        if(channel_index==2)
-            channel_index=0;
-        else
-            channel_index++;
-        jFirstValue+= j_inc;
-        jLastValue += j_inc;
-        if(times%5 == 0 && times > 0)
-        {
-            iFirstValue += i_inc;
-            iLastValue += i_inc;
-            jFirstValue = 0;
-            jLastValue = j_inc;
-            srand ( time(NULL) );
-        }
-        times ++;
-    }while(times<26);
 
+        first_j+= j_inc;
+        last_j += j_inc;
+        if ( times % parts == 0 && times > 0 )
+        {
+            first_i += i_inc;
+            last_i += i_inc;
+            first_j = 0;
+            last_j = j_inc;
+            //srand ( time(NULL) );
+        }
+        times++;
+    }while ( times < (parts*parts + 1) );
 }
 void Image::to_color(int color)
 {
@@ -1850,36 +1845,29 @@ void Image::full_range_adjust(double rgb_min, double rgb_max, data_type_conversi
         }break;
         case NOTHING:
         {
-            i=0; j=0;
-            while(i<height)
+            printf("SEM full_range_adjust() NOTHING\n");
+            for (int i=0; i<height; i++)
             {
                 this->rgb.ptr_data = (uchar *)(this->rgb.ptr_orig + i*this->rgb.widthstep);
-                while(j<width)
+                for (int j=0; j<width; j++)
                 {
+                    index = i*3*width + 3*j;
+                    valueB = this->rgb.ptr_double_data[index  +0];
+                    valueG = this->rgb.ptr_double_data[index  +1];
+                    valueR = this->rgb.ptr_double_data[index  +2];
+                    if(valueB>255.0)
+                        valueB = 255.0;
+                    if(valueG>255.0)
+                        valueG = 255.0;
+                    if(valueR>255.0)
+                        valueR = 255.0;
 
-
-                        index = i*3*width + 3*j;
-                        valueB = this->rgb.ptr_double_data[index  +0];
-                        valueG = this->rgb.ptr_double_data[index  +1];
-                        valueR = this->rgb.ptr_double_data[index  +2];
-                        if(valueB>255.0)
-                            valueB = 255.0;
-                        if(valueG>255.0)
-                            valueG = 255.0;
-                        if(valueR>255.0)
-                            valueR = 255.0;
-
-                        index = 3*j;
-                        this->rgb.ptr_data[index  +0] = (uchar)valueB;
-                        this->rgb.ptr_data[index  +1] = (uchar)valueG;
-                        this->rgb.ptr_data[index  +2] = (uchar)valueR;
-                        j++;
-
+                    index = 3*j;
+                    this->rgb.ptr_data[index  +0] = (uchar)valueB;
+                    this->rgb.ptr_data[index  +1] = (uchar)valueG;
+                    this->rgb.ptr_data[index  +2] = (uchar)valueR;
                 }
-                j=0;
-                i++;
             }
-
         }break;
         case UCHAR_DATA_2_UCHAR_DATA:
         {

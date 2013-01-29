@@ -13,7 +13,6 @@ Data::Data()
 
 void Data::set_size(int rows, int cols, int type)
 {
-
             /*
                  type:
                  * 1: For Video and some Source

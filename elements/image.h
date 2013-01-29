@@ -48,7 +48,7 @@ namespace elements
         //Image  ImageOfHistogram(Component comp);
         void to_grayscale();
         void to_color(int color);
-        void to_mosaic();
+        void to_mosaic(int parts, long long int counter);
         void to_double_vector(int is_double, double *vector);
         void double_vector_to_image(double *vector, int channel_index,int is_double);
         Image convolution(Data *g);
