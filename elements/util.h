@@ -1,3 +1,10 @@
+/*
+      ### Computer Vision Demo ###
+
+    - github.com/salvadorbfm/cv_demo
+    - Author: Salvador Elizarrarás Montenegro
+    - Licensed under the MIT license
+*/
 #ifndef _UTIL_H
 #define _UTIL_H
 

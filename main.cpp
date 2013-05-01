@@ -1,5 +1,12 @@
-#define PI 3.149596
+/*
+    Computer Vision Demo
 
+    - github.com/salvadorbfm/cv_demo
+    - Author: Salvador Elizarrarás Montenegro
+    - Licensed under the MIT license
+
+    main.cpp
+*/
 #include <stdlib.h>
 #include <ctime>
 #include <opencv2/highgui/highgui.hpp>

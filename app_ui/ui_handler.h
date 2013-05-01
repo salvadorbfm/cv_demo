@@ -1,3 +1,10 @@
+/*
+      ### Computer Vision Demo ###
+
+    - github.com/salvadorbfm/cv_demo
+    - Author: Salvador Elizarrarás Montenegro
+    - Licensed under the MIT license
+*/
 #ifndef _UI_HANDLER_H
 #define _UI_HANDLER_H
 #include <stdio.h>

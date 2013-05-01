@@ -1,3 +1,10 @@
+/*
+      ### Computer Vision Demo ###
+
+    - github.com/salvadorbfm/cv_demo
+    - Author: Salvador Elizarrarás Montenegro
+    - Licensed under the MIT license
+*/
 #include "image_creater.h"
 
 using namespace elements;

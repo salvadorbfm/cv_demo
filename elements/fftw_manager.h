@@ -1,3 +1,10 @@
+/*
+      ### Computer Vision Demo ###
+
+    - github.com/salvadorbfm/cv_demo
+    - Author: Salvador Elizarrarás Montenegro
+    - Licensed under the MIT license
+*/
 #ifndef _FFTW_MANAGER_H
 #define _FFTW_MANAGER_H
 #include <stdlib.h>
