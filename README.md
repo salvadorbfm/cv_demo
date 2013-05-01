@@ -1,7 +1,7 @@
 #cv_demo
 =======
 
-This is a computer vision demo, just experimenting with filters. This project is written in C++ and uses OpenCV (just for read the camera, images and video) and FFTW3.
+This is a computer vision demo, just experimenting with filters. This project is written in C++ and uses OpenCV (just for reading the camera, images and video) and FFTW3.
 
 ##Examples:
 ### Threshold by Otsu
