@@ -3,9 +3,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "opencv/cv.h"
-#include "opencv/cxcore.h"
-#include "opencv2/highgui/highgui.hpp"
+#include <opencv/cv.h>
+#include <opencv/cxcore.h>
+#include <opencv2/highgui/highgui.hpp>
 #include "util.h"
 #include "svector.h"
 #include "fftw_manager.h"

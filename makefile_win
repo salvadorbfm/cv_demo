@@ -1,7 +1,7 @@
 
 RELEASE = demo
-LIBS    = -lm -lfftw3 -lopencv_core -lopencv_highgui
-INCLUDE = -I"/usr/local/include/" -I"/usr/include/" -L"/usr/local/lib/" -L"/usr/lib/"
+LIBS    = -lm -lfftw3-3 -lopencv_core243 -lopencv_highgui243
+INCLUDE = -I"C:/opencv/build/include/" -I"C:/FFTW_3_3/" -L"C:/opencv/release/lib/" -L"C:/FFTW_3_3/"
 
 FLAGS   = $(INCLUDE)
 OBJECTS = main.o app_manager.o data_sem.o fftw_manager.o image.o image_analyser.o \

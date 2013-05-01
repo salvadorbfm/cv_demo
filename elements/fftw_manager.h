@@ -2,7 +2,7 @@
 #define _FFTW_MANAGER_H
 #include <stdlib.h>
 #include <math.h>
-#include "fftw3.h"
+#include <fftw3.h>
 #include "util.h"
 
 class FFTWManager {

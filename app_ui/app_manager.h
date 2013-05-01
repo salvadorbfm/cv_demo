@@ -5,7 +5,7 @@
 #include <ctime>
 #include <fstream>
 #include <fftw3.h>
-#include "opencv2/highgui/highgui.hpp"
+#include <opencv2/highgui/highgui.hpp>
 #include "../elements/image_creater.h"
 #include "../elements/image.h"
 #include "../elements/fftw_manager.h"

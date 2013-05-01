@@ -2,8 +2,8 @@
 
 #include <stdlib.h>
 #include <ctime>
-#include "opencv2/highgui/highgui.hpp"
-#include "fftw3.h"
+#include <opencv2/highgui/highgui.hpp>
+#include <fftw3.h>
 #include "elements/image_creater.h"
 #include "elements/image.h"
 #include "elements/fftw_manager.h"
